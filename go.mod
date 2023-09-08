@@ -1,6 +1,6 @@
 module github.com/CortexFoundation/wormhole
 
-go 1.21.0
+go 1.20
 
 require (
 	github.com/CortexFoundation/CortexTheseus v1.10.48
