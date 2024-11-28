@@ -17,6 +17,7 @@
 package wormhole
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -26,4 +27,6 @@ func TestInfoHash(t *testing.T) {
 	if len(rs) == 0 {
 		t.Fatal()
 	}
+
+	fmt.Println(len(rs))
 }
