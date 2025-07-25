@@ -362,7 +362,7 @@ func checkUDPTracker(trackerURL string) error {
 		return fmt.Errorf("invalid connect response")
 	}
 
-	connectionID := resp[8:16]
+	//connectionID := resp[8:16]
 
 	//fmt.Println("Tracker responded to connect request.")
 	//fmt.Printf("Connection ID: %x\n", connectionID)
