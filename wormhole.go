@@ -63,6 +63,8 @@ func (wh *Wormhole) Tunnel(hash string) error {
 func (wh *Wormhole) BestTrackers() (ret []string) {
 	defer wh.cl.SetTimeout(time.Second * 10)
 
+	log.Info("Global trackers loading ... ...")
+
 	var hc, uc atomic.Int32
 
 	for _, ur := range BestTrackerUrl {
