@@ -28,6 +28,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/CortexFoundation/CortexTheseus/common"
@@ -62,7 +63,7 @@ func (wh *Wormhole) Tunnel(hash string) error {
 func (wh *Wormhole) BestTrackers() (ret []string) {
 	defer wh.cl.SetTimeout(time.Second * 10)
 
-	var hc, uc int
+	var hc, uc atomic.Int32
 
 	for _, ur := range BestTrackerUrl {
 		log.Debug("Fetch trackers", "url", ur)
@@ -92,9 +93,9 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 				if t, err := wh.healthCheck(ss); err == nil {
 					//ret = append(ret, s)
 					if t == 0 {
-						hc++
+						hc.Add(1)
 					} else if t == 1 {
-						uc++
+						uc.Add(1)
 					}
 					retCh <- ss
 				} else {
@@ -145,8 +146,8 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		}
 
 		//wg.Wait()
-		fmt.Println(hc)
-		fmt.Println(uc)
+		fmt.Println(hc.Load())
+		fmt.Println(uc.Load())
 
 		if len(ret) > CAP {
 			return
