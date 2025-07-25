@@ -22,6 +22,9 @@ var Wormholes = []string{
 
 const (
 	CAP = 20
+
+	HTTP = 0
+	UDP  = 1
 )
 
 var (

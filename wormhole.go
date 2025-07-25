@@ -83,9 +83,10 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 				//		defer wg.Done()
 				if t, err := wh.healthCheck(ss); err == nil {
 					//ret = append(ret, s)
-					if t == 0 {
+					switch t {
+					case HTTP:
 						hc.Add(1)
-					} else if t == 1 {
+					case UDP:
 						uc.Add(1)
 					}
 					retCh <- ss
@@ -119,9 +120,6 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 			//}
 		}
 
-		if ret == nil {
-			ret = make([]string, 0)
-		}
 		for i := 0; i < len(str); i++ {
 			select {
 			case x := <-retCh:
