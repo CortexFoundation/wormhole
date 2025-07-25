@@ -128,7 +128,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		}
 
 		if ret == nil {
-			ret = make([]string, 0, len(str))
+			ret = make([]string, 0)
 		}
 		for i := 0; i < len(str); i++ {
 			select {
