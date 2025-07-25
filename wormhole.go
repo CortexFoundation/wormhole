@@ -67,7 +67,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 
 	for _, ur := range BestTrackerUrl {
 		log.Debug("Fetch trackers", "url", ur)
-		fmt.Println(ur)
+		//fmt.Println(ur)
 		resp, err := wh.cl.R().Get(ur)
 
 		if err != nil || resp == nil || len(resp.String()) == 0 {
@@ -146,8 +146,8 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		}
 
 		//wg.Wait()
-		fmt.Println(hc.Load())
-		fmt.Println(uc.Load())
+		//fmt.Println(hc.Load())
+		//fmt.Println(uc.Load())
 
 		if len(ret) > CAP {
 			return
@@ -164,7 +164,7 @@ func (wh *Wormhole) healthCheck(s string) (int, error) {
 	case strings.HasPrefix(s, "http"), strings.HasPrefix(s, "https"):
 		//if _, err := wh.cl.R().Post(s); err != nil {
 		if err := checkHTTPTracker(s); err != nil {
-			log.Warn("tracker failed", "err", err)
+			log.Debug("tracker failed", "err", err)
 			// TODO
 			return 0, err
 		} else {
@@ -178,7 +178,7 @@ func (wh *Wormhole) healthCheck(s string) (int, error) {
 					//ret = append(ret, s)
 					return 1, nil
 				} else {
-					log.Warn("UDP ping err", "s", s, "err", err)
+					log.Debug("UDP ping err", "s", s, "err", err)
 					// TODO
 					return 1, err
 				}
@@ -272,7 +272,7 @@ func checkHTTPTracker(base string) error {
 		return fmt.Errorf("tracker responded with failure")
 	}
 
-	fmt.Printf("Tracker responded (%d bytes)\n", len(body))
+	//fmt.Printf("Tracker responded (%d bytes)\n", len(body))
 	return nil
 }
 
@@ -364,7 +364,7 @@ func checkUDPTracker(trackerURL string) error {
 
 	connectionID := resp[8:16]
 
-	fmt.Println("Tracker responded to connect request.")
-	fmt.Printf("Connection ID: %x\n", connectionID)
+	//fmt.Println("Tracker responded to connect request.")
+	//fmt.Printf("Connection ID: %x\n", connectionID)
 	return nil
 }
