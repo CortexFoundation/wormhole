@@ -17,6 +17,7 @@
 package wormhole
 
 import (
+	"slices"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -124,8 +125,10 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 			select {
 			case x := <-retCh:
 				//if len(x) > 0 {
-				log.Debug("Healthy tracker", "url", x, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
-				ret = append(ret, x)
+				if !slices.Contains(ret, x) {
+					log.Debug("Healthy tracker", "url", x, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
+					ret = append(ret, x)
+				}
 				//}
 			case x := <-failedCh:
 				// TODO
