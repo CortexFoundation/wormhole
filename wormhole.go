@@ -140,6 +140,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		//wg.Wait()
 		//fmt.Println(hc.Load())
 		//fmt.Println(uc.Load())
+		log.Info("Current global trackers found", "size", len(ret))
 
 		if len(ret) > CAP {
 			return
