@@ -32,14 +32,16 @@ var (
 		"https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt",
 		"https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_best.txt",
 		"https://ngosang.github.io/trackerslist/trackers_best.txt",
-		// ip addr trackers
-		"https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt",
-		"https://ngosang.github.io/trackerslist/trackers_best_ip.txt",
-		"https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_best_ip.txt",
 
 		"https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt",
 		"https://ngosang.github.io/trackerslist/trackers_all.txt",
 		"https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_all.txt",
+
+		// ips
+
+		"https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt",
+		"https://ngosang.github.io/trackerslist/trackers_best_ip.txt",
+		"https://cdn.jsdelivr.net/gh/ngosang/trackerslist@master/trackers_best_ip.txt",
 
 		"https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_ip.txt",
 		"https://ngosang.github.io/trackerslist/trackers_all_ip.txt",
