@@ -35,7 +35,7 @@ type Wormhole struct {
 
 func New() *Wormhole {
 	return &Wormhole{
-		cl: resty.New().SetTimeout(time.Second * 10),
+		cl: resty.New().SetTimeout(time.Second * 5),
 	}
 }
 
@@ -51,8 +51,6 @@ func (wh *Wormhole) Tunnel(hash string) error {
 }
 
 func (wh *Wormhole) BestTrackers() (ret []string) {
-	defer wh.cl.SetTimeout(time.Second * 10)
-
 	log.Info("Global trackers loading ... ...")
 
 	for _, ur := range BestTrackerUrl {
@@ -63,8 +61,6 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 			log.Warn("Global tracker lost", "err", err)
 			continue
 		}
-
-		wh.cl.SetTimeout(time.Millisecond * 2000)
 
 		var (
 			str      = strings.Split(resp.String(), "\n\n")
@@ -93,7 +89,6 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 				log.Debug("Healthy tracker", "url", x, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
 				ret = append(ret, x)
 			case x := <-failedCh:
-				// TODO
 				log.Debug("Unhealthy tracker", "url", x, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
 
 			}
@@ -104,7 +99,6 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		if len(ret) > CAP {
 			return
 		}
-		wh.cl.SetTimeout(time.Second * 10)
 	}
 
 	return
