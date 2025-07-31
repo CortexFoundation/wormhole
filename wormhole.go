@@ -118,7 +118,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 			log.Info("Healthy tracker", "url", t, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
 			ret = append(ret, t)
 			if len(ret) >= CAP {
-				return ret
+				//return ret
 			}
 		}
 
