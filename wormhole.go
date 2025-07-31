@@ -23,8 +23,8 @@ import (
 	//"sync/atomic"
 	"time"
 
-	//"github.com/CortexFoundation/CortexTheseus/common"
-	//"github.com/CortexFoundation/CortexTheseus/common/mclock"
+	"github.com/CortexFoundation/CortexTheseus/common"
+	"github.com/CortexFoundation/CortexTheseus/common/mclock"
 	"github.com/CortexFoundation/CortexTheseus/log"
 	mapset "github.com/deckarep/golang-set/v2"
 	resty "github.com/go-resty/resty/v2"
@@ -82,7 +82,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 
 		lines := strings.Split(resp.String(), "\n")
 		retCh := make(chan string, len(lines))
-		//start := mclock.Now()
+		start := mclock.Now()
 
 		var wg sync.WaitGroup
 		for _, line := range lines {
@@ -115,7 +115,7 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 		}()
 
 		for t := range retCh {
-			//log.Debug("Healthy tracker", "url", t, "latency", common.PrettyDuration(time.Since(start)))
+			log.Info("Healthy tracker", "url", t, "latency", common.PrettyDuration(time.Duration(mclock.Now())-time.Duration(start)))
 			ret = append(ret, t)
 			if len(ret) >= CAP {
 				return ret
