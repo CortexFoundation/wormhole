@@ -21,6 +21,7 @@ import (
 	"strings"
 	"sync"
 	//"sync/atomic"
+	"fmt"
 	"time"
 
 	"github.com/CortexFoundation/CortexTheseus/common"
@@ -104,6 +105,9 @@ func (wh *Wormhole) BestTrackers() (ret []string) {
 
 				if err := wh.healthCheckWithContext(ctx, t); err == nil {
 					retCh <- t
+				} else {
+					log.Warn("Invalid tracker", "tracker", t, "err", err)
+					fmt.Println(err)
 				}
 			}(tracker)
 		}
